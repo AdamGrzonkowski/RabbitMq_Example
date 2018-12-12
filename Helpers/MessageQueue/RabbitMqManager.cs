@@ -9,14 +9,14 @@ public class RabbitMqManager : IRabbitMqManager
     /// <summary>
     /// Identifier of the queue.
     /// </summary>
-    protected string QueueName => "task5";
+    protected string QueueName => "task7";
 
     /// <summary>
     /// Host name of rabbit mq server.
     /// </summary>
     private string _hostName => "localhost";
 
-    private bool _consumerExclusiveAccess => true;
+    private bool _consumerExclusiveAccess => false;
 
     private readonly IConnection _conn; // declaring connection at class level variable allows it to be easily reused
 
@@ -25,7 +25,16 @@ public class RabbitMqManager : IRabbitMqManager
 
     public RabbitMqManager()
     {
-        _conn = OpenConnection();
+        if (_conn == null)
+        {
+            lock (ConnectionLock)
+            {
+                if (_conn == null)
+                {
+                    _conn = OpenConnection();
+                }
+            }
+        }
     }
 
     protected IModel GetOpenChannel()
@@ -33,11 +42,6 @@ public class RabbitMqManager : IRabbitMqManager
         IModel channel = null;
         try
         {
-            var factory = new ConnectionFactory()
-            {
-                HostName = _hostName
-            };
-
             channel = _conn.CreateModel();
             channel.QueueDeclare(queue: QueueName,
                                     durable: true, // the queue will survive a broker restart (for example RabbitMQ server crush)

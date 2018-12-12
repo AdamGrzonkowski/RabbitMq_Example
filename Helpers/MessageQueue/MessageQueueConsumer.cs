@@ -15,10 +15,12 @@ namespace Helpers.Managers
         private Lazy<IModel> _channel => new Lazy<IModel>(GetOpenChannel);
         private IModel _consumeChannel => _channel.Value;
 
-        public void ReceiveMessage(EventHandler<BasicDeliverEventArgs> receiveHandler)
+        public void ReceiveMessage()
         {
+            _consumeChannel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false); // ensures round-robin (Work-Queue)
+
             var consumer = new EventingBasicConsumer(_consumeChannel);
-            consumer.Received += receiveHandler;
+            consumer.Received += Consumer_Received;
 
             _consumeChannel.BasicConsume(queue: QueueName, // the name of the queue
                                     autoAck: false, // true if the server should consider messages acknowledged once delivered; false if the server should expect explicit acknowledgements

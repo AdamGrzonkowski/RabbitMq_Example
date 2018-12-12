@@ -10,6 +10,6 @@ namespace Helpers.Managers
 {
     public interface IMessageQueueConsumer : IRabbitMqManager
     {
-        void ReceiveMessage(EventHandler<BasicDeliverEventArgs> receiveHandler);
+        void ReceiveMessage();
     }
 }

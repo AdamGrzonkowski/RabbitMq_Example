@@ -13,14 +13,6 @@ namespace Consumer
 {
     public class Receive : MessageQueueConsumer, IReceive
     {
-        public void ReceiveMessage()
-        {
-            using (IMessageQueueConsumer mq = new MessageQueueConsumer())
-            {
-                mq.ReceiveMessage(Consumer_Received);
-            }
-        }
-
         protected override void Consumer_Received(object sender, BasicDeliverEventArgs e)
         {
             var body = e.Body;

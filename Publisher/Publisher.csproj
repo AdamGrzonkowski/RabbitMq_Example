@@ -60,7 +60,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Helpers\Helpers.csproj">
+    <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{4A9BAAB2-434C-4044-8DF9-5438BEB5D8E1}</Project>
       <Name>Helpers</Name>
     </ProjectReference>

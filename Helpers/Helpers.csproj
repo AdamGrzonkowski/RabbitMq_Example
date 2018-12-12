@@ -51,7 +51,6 @@
     <Compile Include="MessageQueue\IMessageQueueProducer.cs" />
     <Compile Include="MessageQueue\MessageQueueConsumer.cs" />
     <Compile Include="MessageQueue\MessageQueueProducer.cs" />
-    <Compile Include="Utils\TimerHelper.cs" />
     <Compile Include="Runtime\AppRuntimeHelper.cs" />
     <Compile Include="MessageQueue\IRabbitMqManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
